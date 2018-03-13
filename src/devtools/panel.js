@@ -1,13 +1,12 @@
 import Vue from 'vue'
 
-import App from './App'
+import app from './app'
 import router from './router'
 import store from './store'
 
 import { mapActions } from 'vuex'
 
 import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.min.css'
 
 import VueClipboard from 'vue-clipboard2'
 
@@ -24,9 +23,9 @@ var root = new Vue({
   el: '#root',
   router,
   store,
-  components: { App },
+  components: { app },
   template: `
-    <App/>
+    <app />
   `,
   methods: mapActions([
     'addLog'

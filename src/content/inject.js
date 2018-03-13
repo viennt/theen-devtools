@@ -6,6 +6,6 @@ document.body.appendChild(script)
 
 // Get message from Angular Application
 document.addEventListener('eJXWq60Ageoxz1lm0vzmsuR32chqrsbk5M8xWRXx', (data) => {
-  // Send message to background script  (background.js)
+  // Send message to background script (background.js)
   chrome.runtime.sendMessage(data.detail)
 })

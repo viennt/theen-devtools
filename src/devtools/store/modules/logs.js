@@ -27,6 +27,9 @@ const actions = {
 const mutations = {
   pushLog (state, payload) {
     state.all.push(payload)
+    chrome.cookies.getAll(function (cookies) {
+      console.log(cookies)
+    })
   },
   selectLog (state, payload) {
     state.selected = payload

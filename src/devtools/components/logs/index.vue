@@ -6,8 +6,8 @@
 </template>
 
 <script>
-  import LogsList from './LogsList'
-  import LogsDetail from './LogsDetail'
+  import LogsList from './logs-list'
+  import LogsDetail from './logs-detail'
 
   export default {
     components: {

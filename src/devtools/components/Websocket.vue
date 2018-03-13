@@ -1,14 +1,45 @@
 <template lang="html">
   <div class="md-layout">
-    <div class="log-items__detail scroll-list-bar md-layout-item md-small-size-50 md-xsmall-size-100">
-      <md-empty-state md-description="There is no content"></md-empty-state>
-    </div>
+    <md-card-content class="panel-theen md-layout-item md-size-100">
+      <div class="md-layout md-gutter">
+        <div class="md-layout-item md-small-size-30">
+          <md-field>
+            <md-input v-model="username" placeholder="Username"></md-input>
+          </md-field>
+        </div>
+
+        <div class="md-layout-item md-small-size-30">
+          <md-field :md-toggle-password="false">
+            <md-input v-model="password" type="password" placeholder="Password"></md-input>
+          </md-field>
+        </div>
+
+        <div class="md-layout-item md-small-size-20">
+          <md-field>
+            <md-select v-model="server" name="server" id="server" placeholder="Server">
+              <md-option value="'DEV'">Dev</md-option>
+              <md-option value="'QA'">QA</md-option>
+              <md-option value="'UAT'">Uat</md-option>
+              <md-option value="'LIVE'">Live</md-option>
+            </md-select>
+          </md-field>
+        </div>
+
+        <div class="md-layout-item md-small-size-20">
+          <md-button class="md-primary"><md-icon>fingerprint</md-icon></md-button>
+        </div>
+      </div>
+    </md-card-content>
+
   </div>
 </template>
 
 <script>
   export default {
     data: () => ({
+      username: null,
+      password: null,
+      server: null
     }),
     computed: { },
     created () { },
@@ -18,6 +49,9 @@
 </script>
 
 <style lang="scss" scoped>
-
+  .md-field {
+    margin-top: -12px;
+    margin-bottom: 4px;
+  }
 </style>
 

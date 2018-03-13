@@ -20,6 +20,7 @@ chrome.extension.onConnect.addListener(function (port) {
       } else {
         chrome.tabs.sendMessage(message.tabId, message, sendResponse)
       }
+
       // This accepts messages from the inspectedPage and
       // sends them to the panel
     } else {
@@ -38,10 +39,4 @@ chrome.extension.onConnect.addListener(function (port) {
   // port.onMessage.addListener(function (message) {
   //   port.postMessage(message);
   // });
-})
-
-// Get message from content script (content_script.js)
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  // Send message to panel (panel.js)
-  chrome.extension.sendMessage(request, function (message) { })
 })
