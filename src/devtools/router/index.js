@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import logs from '../components/logs/index'
-import Websocket from '../components/Websocket'
+import websocket from '../components/websocket/index'
 
 Vue.use(Router)
 
@@ -15,7 +15,7 @@ export default new Router({
     {
       path: '/websocket',
       name: 'websocket',
-      component: Websocket
+      component: websocket
     }
   ]
 })

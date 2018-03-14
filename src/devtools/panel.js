@@ -10,11 +10,8 @@ import VueMaterial from 'vue-material'
 
 import VueClipboard from 'vue-clipboard2'
 
-import JsonTree from 'vue-json-tree'
-
 Vue.use(VueMaterial)
 Vue.use(VueClipboard)
-Vue.component('json-tree', JsonTree)
 
 Vue.config.productionTip = false
 

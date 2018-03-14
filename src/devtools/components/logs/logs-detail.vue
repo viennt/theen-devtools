@@ -1,17 +1,19 @@
 <template lang="pug">
-    <div class="log-items__detail scroll-list-bar md-layout-item md-small-size-50 md-xsmall-size-100">
+    <div class="area-theen-second scroll-list md-layout-item md-medium-size-50 md-small-size-100">
       <md-card-content v-if="!!selectedLog" md-theme="selection-black">
         <div class="md-subheading">{{ selectedLog.message.messageType }}</div>
 
-        <json-tree :raw="selectedLogMessage" :level="0"></json-tree>
+        <JsonTree :raw="selectedLogMessage" :level="0"></JsonTree>
 
         <md-card>
           <md-ripple>
-            <md-card-content class="panel-theen clickable" v-clipboard:copy="slackMessageToCopy">
+            <md-card-content class="panel-theen clickable" v-clipboard:copy="slackMessageToCopy" v-clipboard:success="handleCopyStatus">
               <div v-for="(infor, key) in selectedLog.more">
                 <strong class="text-theen">{{ infor.name }} </strong>
                 <span class="text-grey" v-html="infor.value"></span>
               </div>
+              <md-tooltip v-if="!copySucceeded" md-direction="top">Click to copy</md-tooltip>
+              <md-tooltip v-else md-direction="top">Copied!</md-tooltip>
             </md-card-content>
           </md-ripple>
         </md-card>
@@ -24,9 +26,12 @@
 <script>
   import { mapGetters } from 'vuex'
 
+  import JsonTree from 'vue-json-tree'
+
   export default {
     data: () => ({
-      slackMessageToCopy: 'Nothing!'
+      slackMessageToCopy: 'Nothing!',
+      copySucceeded: null
     }),
     computed: {
       selectedLogMessage: function () {
@@ -47,30 +52,25 @@
         })
         this.slackMessageToCopy = this.slackMessageToCopy.replace(new RegExp('<br><br>', 'g'), '\n')
         this.slackMessageToCopy = this.slackMessageToCopy.replace(new RegExp('<br>', 'g'), '\n')
+      },
+      copySucceeded: function (val) {
+        if (val) {
+          setTimeout(() => {
+            this.copySucceeded = false
+          }, 1000)
+        }
       }
+    },
+    methods: {
+      handleCopyStatus () {
+        this.copySucceeded = true
+      }
+    },
+    components: {
+      JsonTree
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  .log-items__detail {
-    display: block;
-    overflow-y: auto;
-  }
-  .log-items__detail {
-    height: calc((100vh - 60px) * (2 / 3));
-    border-top: 1px solid rgba(0,0,0,.12);
-  }
-  @media (min-width: 768px) {
-    .log-items__detail {
-      display: inline-block;
-      float: left;
-      width: 50%;
-      height: calc(100vh - 60px);
-      overflow-y: auto;
-    }
-    .log-items__detail {
-      border-top: none;
-    }
-  }
 </style>
