@@ -3,17 +3,17 @@
     <md-app md-mode="reveal">
       <md-app-toolbar md-elevation="1">
         <h3 class="md-title text-theen" style="flex: 1">Theen Devtools</h3>
-        <md-button class="md-primary" :class="{'md-icon-button': windowWidth < 600}" :to="{ name: 'logs' }">
+        <md-button :class="{'md-icon-button': windowWidth < 600, 'md-primary': $route.name === 'logs'}" :to="{ name: 'logs' }">
           <md-icon>history</md-icon>
           <span class="md-xsmall-hide">Logs</span>
           <md-tooltip md-direction="bottom">Open Logs</md-tooltip> 
         </md-button>
-        <md-button class="md-primary" :class="{'md-icon-button': windowWidth < 600}" :to="{ name: 'websocket' }">
+        <md-button :class="{'md-icon-button': windowWidth < 600, 'md-primary': $route.name === 'websocket'}" :to="{ name: 'websocket' }">
           <md-icon>compare_arrows</md-icon>
           <span class="md-xsmall-hide">Websocket</span>
           <md-tooltip md-direction="bottom">Open Websocket</md-tooltip> 
         </md-button>
-        <md-button class="md-primary" :class="{'md-icon-button': windowWidth < 600}" @click="clearLogs()">
+        <md-button :class="{'md-icon-button': windowWidth < 600}" @click="clearLogs()">
           <md-icon>refresh</md-icon>
           <span class="md-xsmall-hide">Refresh</span>
           <md-tooltip md-direction="bottom">Refresh</md-tooltip> 
@@ -112,7 +112,7 @@
   }
   .area-theen-second {
     height: calc((100vh - 60px) * (2 / 3));
-    border-top: 1px solid rgba(0,0,0,.12);
+    border-top: 2px solid #00B7C3;
     border-left: none;
   }
   @media (min-width: 960px) {

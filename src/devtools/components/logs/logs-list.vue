@@ -22,9 +22,20 @@
     computed: mapGetters({
       websocketLogs: 'allLogs'
     }),
-    methods: mapActions([
-      'selectLog'
-    ])
+    methods: {
+      scrollToEnd: function () {
+        var container = document.querySelector('.area-theen-first.scroll-list')
+        container.scrollTop = container.scrollHeight
+      },
+      ...mapActions([
+        'selectLog'
+      ])
+    },
+    watch: {
+      websocketLogs: function () {
+        this.scrollToEnd()
+      }
+    }
   }
 </script>
 
@@ -37,11 +48,5 @@
     cursor: pointer;
     transition: color 0.15s;
     white-space: nowrap;
-  }
-  .md-list-item > div:hover {
-    color: #ef6c00!important;
-  }
-  .md-list-item-text {
-    font-weight: 400;
   }
 </style>

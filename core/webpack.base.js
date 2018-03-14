@@ -98,7 +98,7 @@ module.exports = {
     htmlPage('background', 'background', ['background']),
     new CopyWebpackPlugin([{ from: path.join(__dirname, '..', 'static') }]),
     new ChromeReloadPlugin({
-      port: 9090,
+      port: 5005,
       manifest: path.join(__dirname, '..', 'src', 'manifest.js')
     }),
   ],

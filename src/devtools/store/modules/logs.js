@@ -6,35 +6,32 @@ const state = {
 
 // getters
 const getters = {
-  allLogs: state => state.all,
+  allLogs: state => state.all.filter(data => !!data),
   selectedLog: state => state.selected
 }
 
 // actions
 const actions = {
   addLog ({ commit }, log) {
-    commit('pushLog', log)
+    commit('PUSH_LOG', log)
   },
   selectLog ({ commit }, log) {
-    commit('selectLog', log)
+    commit('SELECT_LOG', log)
   },
   clearLogs ({ commit }) {
-    commit('clearLogs')
+    commit('CLEAR_LOGS')
   }
 }
 
 // mutations
 const mutations = {
-  pushLog (state, payload) {
+  PUSH_LOG (state, payload) {
     state.all.push(payload)
-    chrome.cookies.getAll(function (cookies) {
-      console.log(cookies)
-    })
   },
-  selectLog (state, payload) {
+  SELECT_LOG (state, payload) {
     state.selected = payload
   },
-  clearLogs (state) {
+  CLEAR_LOGS (state) {
     state.all = []
     state.selected = undefined
   }
