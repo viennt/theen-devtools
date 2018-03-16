@@ -52,12 +52,12 @@
 </script>
 
 <style lang="scss">
-  *, body {font-family: 'Source Code Pro', sans-serif}
+  *, body {font-family: 'Roboto', sans-serif}
 
   // Custom vuematerial color
   @import "~vue-material/dist/theme/engine";
   @include md-register-theme("default", (
-    primary: #00B7C3
+    primary: #06aed4
   ));
   @import '~vue-material/dist/vue-material.min.css';
   @import "~vue-material/dist/theme/all";
@@ -89,7 +89,7 @@
 
   // Theen devtools custom
   .text-theen {
-    color: #00B7C3!important;
+    color: #06aed4!important;
   }
   .text-grey {
     color: #4C4A48!important;
@@ -142,6 +142,9 @@
     padding: .2rem .4rem!important;
     line-height: 1.3!important;
     min-width: auto!important;
+  }
+  .json-tree-root * {
+    font-family: 'Source Code Pro', sans-seri
   }
 
   .scroll-list {

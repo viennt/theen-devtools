@@ -1,7 +1,7 @@
 <template lang="pug">
     <div class="area-theen-second scroll-list md-layout-item md-medium-size-50 md-small-size-100">
       <md-card-content v-if="!!selectedLog" md-theme="selection-black">
-        <div class="md-subheading">{{ selectedLog.message.messageType }}</div>
+        <div class="md-subheading">{{ selectedLog.title }}</div>
 
         <JsonTree :raw="selectedLogMessage" :level="0"></JsonTree>
 
@@ -73,4 +73,7 @@
 </script>
 
 <style lang="scss" scoped>
+  .area-theen-second * {
+    font-family: 'Source Code Pro', sans-seri
+  }
 </style>

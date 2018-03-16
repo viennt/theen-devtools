@@ -7,11 +7,20 @@ import store from './store'
 import { mapActions } from 'vuex'
 
 import VueMaterial from 'vue-material'
-
 import VueClipboard from 'vue-clipboard2'
+
+import VueRx from 'vue-rx'
+import { Observable } from 'rxjs/Observable'
+import { Subject } from 'rxjs/Subject'
+import { Subscription } from 'rxjs/Subscription'
 
 Vue.use(VueMaterial)
 Vue.use(VueClipboard)
+Vue.use(VueRx, {
+  Observable,
+  Subject,
+  Subscription
+})
 
 Vue.config.productionTip = false
 

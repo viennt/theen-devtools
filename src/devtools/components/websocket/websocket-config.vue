@@ -26,7 +26,7 @@
               </md-field>
             </div>
 
-            <div class="md-layout-item">
+            <div class="md-layout-item md-large-size-30 md-medium-size-30 md-small-size-30 md-xsmall-size-30">
               <md-button class="md-dense md-primary" @click="doLogin()">
                 <md-icon>fingerprint</md-icon>
                 <md-tooltip md-direction="right">Login and get access token</md-tooltip>
@@ -35,14 +35,14 @@
           </div>
 
           <div v-else class="md-layout-item md-layout md-gutter">
-            <div class="md-layout-item md-small-size-70">
+            <div class="md-layout-item md-large-size-70 md-medium-size-70 md-small-size-70 md-xsmall-size-70">
               <md-field>
                 <md-input v-model="accessToken" placeholder="Access token"></md-input>
               </md-field>
             </div>
 
-            <div class="md-layout-item">
-              <md-button class="md-dense md-primary">
+            <div class="md-layout-item md-large-size-30 md-medium-size-30 md-small-size-30 md-xsmall-size-30">
+              <md-button class="md-dense md-primary" @click="openLogin()">
                 <md-icon>replay</md-icon>
                 <md-tooltip md-direction="right">Open login form</md-tooltip>
               </md-button>
@@ -55,16 +55,25 @@
 </template>
 
 <script>
+  import md5 from 'js-md5'
+  import { getEnvConfig } from '../../tools/backend/index'
+
   export default {
     data: () => ({
       server: null,
       username: null,
       password: null,
-      accessToken: null
+      accessToken: null,
+      websocket: null
     }),
     methods: {
       doLogin () {
+        this.getAccessToken(this.server, this.username, this.password)
         this.storeCredentials(this.server, this.username, this.password)
+      },
+      openLogin () {
+        this.accessToken = null
+        this.websocket = new WebSocket(getEnvConfig(this.server))
       },
       storeCredentials (server, username, password) {
         let options = {
@@ -79,6 +88,28 @@
           accessToken: accessToken
         }
         chrome.storage.sync.set({'theenOptions': options})
+      },
+      getAccessToken (server, username, password) {
+        this.websocket.onmessage = (message) => {
+          try {
+            let content = JSON.parse(message.data)
+            this.accessToken = JSON.parse(content.data).accessToken.accessToken
+          } catch (e) {
+            this.accessToken = null
+          }
+          this.websocket.close()
+        }
+        this.websocket.onerror = (error) => { console.error(error) }
+        this.websocket.onclose = () => {}
+        this.websocket.send(JSON.stringify({
+          messageType: 'USER_LOGIN',
+          data: JSON.stringify({username: username, password: md5(password), latitude: 0, longitude: 0})
+        }))
+      }
+    },
+    watch: {
+      server: function (val) {
+        this.websocket = new WebSocket(getEnvConfig(val))
       }
     },
     mounted () {
