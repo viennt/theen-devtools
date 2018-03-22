@@ -40,3 +40,7 @@ chrome.extension.onConnect.addListener(function (port) {
   //   port.postMessage(message);
   // });
 })
+
+chrome.browserAction.onClicked.addListener(function () {
+  chrome.tabs.create({'url': 'pages/panel.html'})
+})

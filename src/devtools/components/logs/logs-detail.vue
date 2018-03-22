@@ -1,22 +1,35 @@
-<template lang="pug">
-  <el-col class="area-theen-second scroll-list" :xs="24" :sm="12">
+<template>
+  <el-col
+    class="area-theen-second scroll-list"
+    :xs="24" :sm="12" v-loading="isLoading">
 
-    <div v-if="!!selectedLog" class="selection-black">
-      <div style="font-size: 16px">{{ selectedLog.title }}</div>
-
-      <JsonTree :raw="selectedLogMessage" :level="0"></JsonTree>
-
-      <el-tooltip class="item" effect="dark" :content="!copySucceeded ? 'Click to copy' : 'Copied!'" placement="top">
-        <div class="panel-theen clickable" v-clipboard:copy="slackMessageToCopy" v-clipboard:success="handleCopyStatus">
-          <div v-for="(infor, key) in selectedLog.more">
-            <strong class="text-theen">{{ infor.name }} </strong>
-            <span class="text-grey" v-html="infor.value"></span>
-          </div>
+    <div v-if="!isLoading">
+      <div v-if="!!selectedLog"
+        class="selection-black">
+        <div style="font-size: 16px">
+          {{ selectedLog.title || 'Unknown Log' }}
         </div>
-      </el-tooltip>
+
+        <JsonTree :raw="selectedLogMessage" :level="0"></JsonTree>
+
+        <el-tooltip v-if="!!selectedLog.more"
+          :content="!copySucceeded ? 'Click to copy' : 'Copied!'"
+          class="item" effect="dark" placement="top">
+          <div
+            v-clipboard:copy="slackMessageToCopy"
+            v-clipboard:success="handleCopyStatus"
+            class="panel-theen clickable">
+            <div v-for="infor in selectedLog.more" :key="infor.name">
+              <strong class="text-theen">{{ infor.name || '-' }} </strong>
+              <span class="text-grey" v-html="infor.value"></span>
+            </div>
+          </div>
+        </el-tooltip>
+      </div>
+
+      <el-alert v-else title="Select a log to show detail" type="info" center :closable="false"></el-alert>
     </div>
 
-    <el-alert v-else title="Select a log to show detail" type="info" center :closable="false"></el-alert>
   </el-col>
 </template>
 
@@ -27,12 +40,17 @@
 
   export default {
     data: () => ({
+      isLoading: false,
       slackMessageToCopy: 'Nothing!',
       copySucceeded: null
     }),
     computed: {
       selectedLogMessage: function () {
-        return JSON.stringify(this.selectedLog.message.data)
+        if (!!this.selectedLog && !!this.selectedLog.data) {
+          return JSON.stringify(this.selectedLog.data)
+        } else {
+          return JSON.stringify({})
+        }
       },
       ...mapGetters({
         selectedLog: 'selectedLog'
@@ -40,6 +58,9 @@
     },
     watch: {
       selectedLog: function (log) {
+        this.isLoading = true
+        setTimeout(() => { this.isLoading = false }, 500)
+
         if (!log || !log.more || !log.more.length) {
           return
         }

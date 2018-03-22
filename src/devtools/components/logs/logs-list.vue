@@ -1,14 +1,21 @@
-<template lang="pug">
-  <el-col class="area-theen-first text-selection-disabled scroll-list" :xs="24" :sm="12" ref="scrollList">
+<template>
+  <el-col
+    class="area-theen-first text-selection-disabled scroll-list"
+    :xs="24" :sm="12" ref="scrollList">
     
     <div v-if="!!websocketLogs && !!websocketLogs.length">
-      <div v-for="(wsLog, key) in websocketLogs" @click="selectLog(wsLog)" class="list-item">
-        <el-alert v-show="true" :type="wsLog.type === 'RESPONSE_SUCCESS' ? 'success' : (wsLog.type === 'RESPONSE_ERROR' ? 'error' : 'info')" :title="wsLog.message.messageType" show-icon>
+      <div v-for="wsLog in websocketLogs" :key="wsLog.id"
+        @click="selectLog(wsLog)">
+        <el-alert
+          :type="wsLog.type"
+          :title="wsLog.title"
+          class="list-item">
         </el-alert>
       </div>
     </div>
 
-    <el-alert v-else title="There are no logs" type="info" center :closable="false"></el-alert>
+    <el-alert v-else title="There are no logs"
+      type="info" center :closable="false"></el-alert>
   </el-col>
 </template>
 

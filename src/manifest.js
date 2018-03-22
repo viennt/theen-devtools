@@ -21,8 +21,8 @@ module.exports = {
     'identity.email'
   ],
   browser_action: {
-    default_title: 'title',
-    default_popup: 'pages/popup.html'
+    default_title: 'Theen Devtools',
+    // default_popup: 'pages/popup.html'
   },
   background: {
     persistent: false,

@@ -1,28 +1,55 @@
-<template lang="pug">
+<template>
   <el-container>
     <el-header>
-      <el-menu :default-active="$route.name" class="el-menu-demo" mode="horizontal" :router="true">
+      <el-menu
+        class="el-menu-demo"
+        mode="horizontal"
+        :router="true"
+        :default-active="$route.name">
 
-        <el-tooltip class="item" effect="dark" content="Open Logs" placement="bottom-start">
+        <el-tooltip
+          class="item"
+          effect="dark"
+          content="Open Logs"
+          placement="bottom-start">
           <el-menu-item index="logs">
-            <i class="el-icon-time"></i> <span v-if="windowWidth >= 600">Logs</span>
+            <i class="el-icon-time"></i>
+            <span v-if="windowWidth >= 600">Logs</span>
           </el-menu-item>
         </el-tooltip>
 
-        <el-tooltip class="item" effect="dark" content="Open Websocket" placement="bottom-start">
+        <el-tooltip
+          class="item"
+          effect="dark"
+          content="Open Websocket"
+          placement="bottom-start">
           <el-menu-item index="websocket">
-            <i class="el-icon-sort"></i> <span v-if="windowWidth >= 600">Websocket</span>
+            <i class="el-icon-sort"></i>
+            <span v-if="windowWidth >= 600">Websocket</span>
           </el-menu-item>
         </el-tooltip>
 
-        <el-tooltip class="item" effect="dark" content="Refresh" placement="bottom-start">
-          <el-button id="btn-refresh" type="primary" plain @click="clearLogs()">
-            <i class="el-icon-refresh"></i> <span v-if="windowWidth >= 600">Refresh</span>
-          </el-button>
+        <el-tooltip
+          class="item"
+          effect="dark"
+          content="Open JSON Parser"
+          placement="bottom-start">
+          <el-menu-item index="json-parser">
+            <i class="el-icon-news"></i>
+            <span v-if="windowWidth >= 600">JSON Parser</span>
+          </el-menu-item>
         </el-tooltip>
+
+        <el-button
+          id="btn-refresh" type="primary"
+          plain @click="clearLogs()">
+          <i class="el-icon-refresh"></i>
+          <span v-if="windowWidth >= 600">Refresh</span>
+        </el-button>
 
       </el-menu>
     </el-header>
+
     <el-main>
       <router-view/>
     </el-main>

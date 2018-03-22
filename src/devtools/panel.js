@@ -45,13 +45,18 @@ var root = new Vue({
   ])
 })
 
-// Create a port with background page for continous message communication
+/****************************************
+ * Communicate with background
+ ****************************************/
+
+// Create a port with background page for
+// continous message communication
 var port = chrome.extension.connect({
   name: 'Angular Devtools Communication' // Given a Name
 })
 
-// Listen to messages from the background (background.js)
+// Listen to messages from the background
 port.onMessage.addListener((content) => {
-  root.addLog(content.websocket.log)
+  root.addLog(content.log)
   // port.postMessage(message);
 })
