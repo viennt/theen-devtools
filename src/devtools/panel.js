@@ -4,9 +4,11 @@ import app from './app'
 import router from './router'
 import store from './store'
 
-import { mapActions } from 'vuex'
+/****************************************
+ * Import third-party
+ ****************************************/
+import Element from 'element-ui'
 
-import VueMaterial from 'vue-material'
 import VueClipboard from 'vue-clipboard2'
 
 import VueRx from 'vue-rx'
@@ -14,7 +16,12 @@ import { Observable } from 'rxjs/Observable'
 import { Subject } from 'rxjs/Subject'
 import { Subscription } from 'rxjs/Subscription'
 
-Vue.use(VueMaterial)
+import { mapActions } from 'vuex'
+
+/****************************************
+ * Declare third-party
+ ****************************************/
+Vue.use(Element)
 Vue.use(VueClipboard)
 Vue.use(VueRx, {
   Observable,

@@ -1,8 +1,8 @@
 <template lang="pug">
-  <div class="md-layout">
+  <el-row :gutter="10">
     <LogsList />
     <LogsDetail />
-  </div>
+  </el-row>
 </template>
 
 <script>

@@ -1,30 +1,32 @@
 <template lang="pug">
-  <div class="page-container">
-    <md-app md-mode="reveal">
-      <md-app-toolbar md-elevation="1">
-        <h3 class="md-title text-theen" style="flex: 1">Theen Devtools</h3>
-        <md-button :class="{'md-icon-button': windowWidth < 600, 'md-primary': $route.name === 'logs'}" :to="{ name: 'logs' }">
-          <md-icon>history</md-icon>
-          <span class="md-xsmall-hide">Logs</span>
-          <md-tooltip md-direction="bottom">Open Logs</md-tooltip> 
-        </md-button>
-        <md-button :class="{'md-icon-button': windowWidth < 600, 'md-primary': $route.name === 'websocket'}" :to="{ name: 'websocket' }">
-          <md-icon>compare_arrows</md-icon>
-          <span class="md-xsmall-hide">Websocket</span>
-          <md-tooltip md-direction="bottom">Open Websocket</md-tooltip> 
-        </md-button>
-        <md-button :class="{'md-icon-button': windowWidth < 600}" @click="clearLogs()">
-          <md-icon>refresh</md-icon>
-          <span class="md-xsmall-hide">Refresh</span>
-          <md-tooltip md-direction="bottom">Refresh</md-tooltip> 
-        </md-button>
-      </md-app-toolbar>
+  <el-container>
+    <el-header>
+      <el-menu :default-active="$route.name" class="el-menu-demo" mode="horizontal" :router="true">
 
-      <md-app-content>
-        <router-view/>
-      </md-app-content>
-    </md-app>
-  </div>
+        <el-tooltip class="item" effect="dark" content="Open Logs" placement="bottom-start">
+          <el-menu-item index="logs">
+            <i class="el-icon-time"></i> <span v-if="windowWidth >= 600">Logs</span>
+          </el-menu-item>
+        </el-tooltip>
+
+        <el-tooltip class="item" effect="dark" content="Open Websocket" placement="bottom-start">
+          <el-menu-item index="websocket">
+            <i class="el-icon-sort"></i> <span v-if="windowWidth >= 600">Websocket</span>
+          </el-menu-item>
+        </el-tooltip>
+
+        <el-tooltip class="item" effect="dark" content="Refresh" placement="bottom-start">
+          <el-button id="btn-refresh" type="primary" plain @click="clearLogs()">
+            <i class="el-icon-refresh"></i> <span v-if="windowWidth >= 600">Refresh</span>
+          </el-button>
+        </el-tooltip>
+
+      </el-menu>
+    </el-header>
+    <el-main>
+      <router-view/>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
@@ -52,44 +54,31 @@
 </script>
 
 <style lang="scss">
-  *, body {font-family: 'Roboto', sans-serif}
+  @import "~element-ui/lib/theme-chalk/index.css";
 
-  // Custom vuematerial color
-  @import "~vue-material/dist/theme/engine";
-  @include md-register-theme("default", (
-    primary: #06aed4
-  ));
-  @import '~vue-material/dist/vue-material.min.css';
-  @import "~vue-material/dist/theme/all";
+  *, body {
+    font-family: 'Roboto', sans-serif
+  }
+  body {
+    margin: 0
+  }
 
-  .md-app {
-    height: 100vh;
-    border: 1px solid rgba(#000, .12);
+  .el-header {
+    padding-left: 0;
+    padding-right: 0;
   }
-  .md-toolbar {
-    background: #ffffff !important;
+  .el-main {
+    padding: 1px 0 0 0;
+    margin: 0 0 -20px 0;
   }
-  .md-toolbar + .md-toolbar {
-    margin-top: 16px;
-  }
-  .md-app-content {
-    padding: 0;
-  }
-  .md-app-content .md-card {
-    margin: 0;
-    box-shadow: none;
-  }
-  .md-list-item-content {
-    min-height: 2rem!important;
-    color: #424242!important;
-  }
-  .md-card-content {
-    padding: .5rem!important;
+  .el-menu .el-button {
+    float: right;
+    margin: 10px;
   }
 
   // Theen devtools custom
   .text-theen {
-    color: #06aed4!important;
+    color: #409EFF!important;
   }
   .text-grey {
     color: #4C4A48!important;
@@ -97,7 +86,6 @@
   .panel-theen {
     background-color: #f5f5f5;
     border-radius: 2px;
-    font-size: 87.5%;
     padding: .2rem .4rem;
     word-break: break-word;
     line-height: 1.3;
@@ -105,17 +93,17 @@
   .area-theen-first {
     height: calc((100vh - 60px) * (1 / 3));
   }
-  @media (min-width: 960px) {
+  @media (min-width: 768px) {
     .area-theen-first {
       height: calc(100vh - 60px);
     }
   }
   .area-theen-second {
     height: calc((100vh - 60px) * (2 / 3));
-    border-top: 2px solid #00B7C3;
+    border-top: 2px solid #409EFF;
     border-left: none;
   }
-  @media (min-width: 960px) {
+  @media (min-width: 768px) {
     .area-theen-second {
       height: calc(100vh - 60px);
       border-top: none;

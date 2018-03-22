@@ -1,15 +1,15 @@
 <template lang="pug">
-    <div class="area-theen-first text-selection-disabled scroll-list md-layout-item md-medium-size-50 md-small-size-100" ref="scrollList">
-      <md-content v-if="!!websocketLogs && !!websocketLogs.length" class="md-scrollbar">
-        <md-list>
-          <md-list-item v-for="(wsLog, key) in websocketLogs" @click="selectLog(wsLog)" :class="{'item-request': wsLog.type === 'REQUEST', 'item-success': wsLog.type === 'RESPONSE_SUCCESS', 'item-error': wsLog.type === 'RESPONSE_ERROR',}">
-            <span class="md-caption">{{ wsLog.title }}</span>
-          </md-list-item>
-        </md-list>
-      </md-content>
-
-      <md-empty-state v-else md-description="There are no logs"></md-empty-state>
+  <el-col class="area-theen-first text-selection-disabled scroll-list" :xs="24" :sm="12" ref="scrollList">
+    
+    <div v-if="!!websocketLogs && !!websocketLogs.length">
+      <div v-for="(wsLog, key) in websocketLogs" @click="selectLog(wsLog)" class="list-item">
+        <el-alert v-show="true" :type="wsLog.type === 'RESPONSE_SUCCESS' ? 'success' : (wsLog.type === 'RESPONSE_ERROR' ? 'error' : 'info')" :title="wsLog.message.messageType" show-icon>
+        </el-alert>
+      </div>
     </div>
+
+    <el-alert v-else title="There are no logs" type="info" center :closable="false"></el-alert>
+  </el-col>
 </template>
 
 <script>
@@ -37,20 +37,9 @@
 </script>
 
 <style lang="scss" scoped>
-  .md-list-item {
+  .list-item {
     overflow: hidden;
     border-bottom: 1px solid rgba(0,0,0,.12);
-  }
-  .md-list-item.item-request * {
-    font-weight: 100;
-  }
-  .md-list-item.item-success * {
-    color: #06aed4;
-  }
-  .md-list-item.item-error * {
-    color: red;
-  }
-  .md-list-item > div {
     cursor: pointer;
     transition: color 0.15s;
     white-space: nowrap;
