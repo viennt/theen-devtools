@@ -1,8 +1,8 @@
-<template lang="html">
-  <div class="md-layout">
+<template>
+  <el-row>
     <WebsocketConfig />
     <WebsocketRunner />
-  </div>
+  </el-row>
 </template>
 
 <script>

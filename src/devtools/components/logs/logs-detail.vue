@@ -27,7 +27,12 @@
         </el-tooltip>
       </div>
 
-      <el-alert v-else title="Select a log to show detail" type="info" center :closable="false"></el-alert>
+      <el-alert v-else
+        title="Select a log to show detail"
+        type="info"
+        :closable="false"
+        center>
+      </el-alert>
     </div>
 
   </el-col>

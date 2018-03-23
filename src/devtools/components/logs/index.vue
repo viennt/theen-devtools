@@ -1,5 +1,5 @@
-<template lang="pug">
-  <el-row :gutter="10">
+<template>
+  <el-row>
     <LogsList />
     <LogsDetail />
   </el-row>
