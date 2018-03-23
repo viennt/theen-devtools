@@ -113,7 +113,7 @@
   .panel-theen {
     background-color: #f5f5f5;
     border-radius: 2px;
-    padding: .2rem .4rem;
+    padding: .4rem;
     word-break: break-word;
     line-height: 1.3;
   }
@@ -162,7 +162,9 @@
     font-family: 'Source Code Pro', sans-seri
   }
 
-  .scroll-list {
+  .scroll-list,
+  .CodeMirror-vscrollbar,
+  .CodeMirror-hscrollbar {
     overflow-y: auto;
 
     &::-webkit-scrollbar-track {
@@ -170,6 +172,7 @@
       border-radius: 10px;
     }
     &::-webkit-scrollbar {
+      height: 10px;
       width: 10px;
       background-color: #F3F3F3;
     }
@@ -180,5 +183,9 @@
       -moz-transition: display 250ms cubic-bezier(.2,.8,.5,1),top 0s linear 0s,left 250ms ease-in-out;
       transition: display 250ms cubic-bezier(.2,.8,.5,1),top 0s linear 0s,left 250ms ease-in-out;
     }
+  }
+
+  .CodeMirror {
+    height: 100%;
   }
 </style>

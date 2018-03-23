@@ -1,5 +1,5 @@
 export const ENV = {
-  DEV: 'ws://192.168.21.226:9000/message',
+  DEV: 'ws://113.160.225.76:8745/message',
   LIVE: 'wss://api.freakick.com/message',
   QA: 'ws://113.160.225.76:8753/message',
   UAT: 'ws://113.160.225.76:8743/message'

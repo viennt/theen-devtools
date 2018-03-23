@@ -15,7 +15,8 @@
     </div>
 
     <el-alert v-else title="There are no logs"
-      type="info" center :closable="false"></el-alert>
+      type="info" center :closable="false">
+    </el-alert>
   </el-col>
 </template>
 
@@ -50,5 +51,9 @@
     cursor: pointer;
     transition: color 0.15s;
     white-space: nowrap;
+    border-radius: 0;
+  }
+  .list-item:hover {
+    font-weight: 600;
   }
 </style>

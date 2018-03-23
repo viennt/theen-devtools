@@ -5,6 +5,9 @@
       <div class="panel-theen">
         <WebSocketAccessToken />
       </div>
+      <div class="panel-theen">
+        <codemirror v-model="code"></codemirror>
+      </div>
   </el-col>
 </template>
 
