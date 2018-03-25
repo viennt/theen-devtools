@@ -1,25 +1,19 @@
 <template>
   <el-col
-    class="area-theen-first text-selection-disabled scroll-list"
-    :xs="24" :sm="12" ref="scrollList">
+    class="area-theen-first scroll-list"
+    :xs="24" :sm="8" ref="scrollList">
       <div class="panel-theen">
-        <WebSocketAccessToken />
-      </div>
-      <div class="panel-theen">
-        <codemirror v-model="code"></codemirror>
+        <WebSocketServer />
       </div>
   </el-col>
 </template>
 
 <script>
-  import WebSocketAccessToken from './websocket-access-token'
+  import WebSocketServer from './websocket-servers'
 
   export default {
-    data: () => ({
-      //
-    }),
     components: {
-      WebSocketAccessToken
+      WebSocketServer
     }
   }
 </script>

@@ -1,7 +1,7 @@
 {
   "name": "theen-devtools",
   "version": "0.0.1",
-  "description": "Theen Devtools chrome extension",
+  "description": "Theen Devtools Chrome Extension",
   "author": "thevien@outlook.com",
   "license": "MIT",
   "private": false,
@@ -9,7 +9,6 @@
     "axios": "^0.17.0",
     "bootstrap-vue": "^2.0.0-rc.1",
     "element-ui": "^2.2.2",
-    "js-md5": "^0.7.3",
     "lodash": "^4.17.4",
     "npm": "^5.7.1",
     "rxjs": "^5.5.7",

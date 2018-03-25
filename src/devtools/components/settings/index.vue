@@ -1,6 +1,6 @@
 <template>
   <el-alert
-    title="JSON Parser - Coming Soon"
+    title="Settings - Coming Soon"
     type="info"
     :closable="false"
     center>

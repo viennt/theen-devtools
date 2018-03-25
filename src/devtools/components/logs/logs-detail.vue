@@ -1,7 +1,7 @@
 <template>
   <el-col
     class="area-theen-second scroll-list"
-    :xs="24" :sm="12" v-loading="isLoading">
+    :xs="24" :sm="16" v-loading="isLoading">
 
     <div v-if="!isLoading">
       <div v-if="!!selectedLog"

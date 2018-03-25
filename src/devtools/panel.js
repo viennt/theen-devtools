@@ -10,8 +10,6 @@ import store from './store'
 import Element from 'element-ui'
 import VueCodemirror from 'vue-codemirror'
 import 'codemirror/mode/javascript/javascript.js'
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/theme/neo.css'
 import VueClipboard from 'vue-clipboard2'
 
 import VueRx from 'vue-rx'
@@ -22,17 +20,27 @@ import { Subscription } from 'rxjs/Subscription'
 import { mapActions } from 'vuex'
 
 /****************************************
+ * Import third-party style
+ ****************************************/
+import 'element-ui/lib/theme-chalk/index.css'
+import 'element-ui/lib/theme-chalk/display.css'
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/theme/eclipse.css'
+import './scss/main.scss'
+
+/****************************************
  * Declare third-party
  ****************************************/
 Vue.use(Element)
 Vue.use(VueCodemirror, {
   options: {
     tabSize: 4,
+    indentWithTabs: true,
     styleActiveLine: true,
     lineNumbers: true,
     line: true,
     mode: 'text/javascript',
-    theme: 'neo'
+    theme: 'eclipse'
   }
 })
 Vue.use(VueClipboard)

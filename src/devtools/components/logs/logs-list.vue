@@ -1,7 +1,7 @@
 <template>
   <el-col
     class="area-theen-first text-selection-disabled scroll-list"
-    :xs="24" :sm="12" ref="scrollList">
+    :xs="24" :sm="8" ref="scrollList">
     
     <div v-if="!!websocketLogs && !!websocketLogs.length">
       <div v-for="wsLog in websocketLogs" :key="wsLog.id"
