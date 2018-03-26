@@ -17,12 +17,16 @@
           </el-button>
         </el-tooltip>
         <el-tooltip
-          class="item"
-          effect="dark"
-          content="Send"
-          placement="bottom">
-          <el-button
+          class="item" effect="dark"
+          content="Send" placement="bottom">
+          <el-button v-if="socketState === 1"
             type="primary"
+            icon="el-icon-caret-right"
+            size="small">
+          </el-button>
+          <el-button v-else
+            disabled
+            type="info"
             icon="el-icon-caret-right"
             size="small">
           </el-button>
@@ -47,6 +51,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     data: () => ({
       wsRequestMessage: `{
@@ -59,7 +65,13 @@
     }
 }`,
       wsResponseMessage: ``
-    })
+    }),
+    computed: {
+      ...mapGetters({
+        websocket: 'websocket',
+        socketState: 'socketState'
+      })
+    }
   }
 </script>
 
