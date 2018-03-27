@@ -2,50 +2,45 @@
   <el-col
     class="area-theen-second scroll-list"
     :xs="24" :sm="16">
+    <!-- Send Request -->
     <div class="panel-theen">
-      <el-row
-        :gutter="5"
-        type="flex">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          content="Parse"
-          placement="bottom">
-          <el-button
-            icon="el-icon-minus"
-            size="small">
-          </el-button>
-        </el-tooltip>
-        <el-tooltip
-          class="item" effect="dark"
-          content="Send" placement="bottom">
-          <el-button v-if="socketState === 1"
-            type="primary"
-            icon="el-icon-caret-right"
-            size="small">
-          </el-button>
-          <el-button v-else
-            disabled
-            type="info"
-            icon="el-icon-caret-right"
-            size="small">
-          </el-button>
-        </el-tooltip>
-      </el-row>
+      <el-tooltip
+        class="item" effect="dark"
+        content="Send" placement="bottom">
+        <el-button v-if="socketState === 1"
+          @click="sendMessage()"
+          type="primary"
+          icon="el-icon-caret-right"
+          size="small">
+        </el-button>
+        <el-button v-else
+          disabled
+          type="info"
+          icon="el-icon-caret-right"
+          size="small">
+        </el-button>
+      </el-tooltip>
     </div>
     <div class="panel-theen-light">
-      <div style="font-size: 14px">
-        Request
-      </div>
+      <strong class="text-theen">Request:</strong>
       <codemirror v-model="wsRequestMessage">
       </codemirror>
     </div>
+
+    <!-- Parse Response -->
     <div class="panel-theen-light">
-      <div style="font-size: 14px">
-        Response
-      </div>
-      <codemirror v-model="wsResponseMessage">
-      </codemirror>
+      <strong class="text-theen">Response:</strong>
+      <JsonTree :raw="jsonTreeData" :level="0"></JsonTree>
+      <el-tooltip v-if="wsResponseMessage.trim()"
+        :content="!copySucceeded ? 'Click to copy' : 'Copied!'"
+        class="item" effect="dark" placement="top">
+        <div
+          v-clipboard:copy="wsResponseMessage"
+          v-clipboard:success="handleCopyStatus"
+          class="panel-theen clickable">
+          <span class="text-grey" v-html="wsResponseMessage"></span>
+        </div>
+      </el-tooltip>
     </div>
   </el-col>
 </template>
@@ -53,27 +48,80 @@
 <script>
   import { mapGetters } from 'vuex'
 
+  import JsonTree from 'vue-json-tree'
+
   export default {
     data: () => ({
-      wsRequestMessage: `{
-    messageType: 'LOGIN',
-    data: {
-        username: 'username',
-        password: 'password',
-        latitude: 0,
-        longitude: 0
-    }
-}`,
-      wsResponseMessage: ``
+      wsRequestMessage: `
+
+`,
+      wsResponseMessage: `
+
+`,
+      copySucceeded: null
     }),
     computed: {
+      jsonTreeData: function () {
+        try {
+          let parseData = this.wsResponseMessage
+          if (typeof this.wsResponseMessage === 'string') {
+            parseData = JSON.parse(this.wsResponseMessage)
+          }
+          for (let key in parseData) {
+            if (parseData.hasOwnProperty(key) &&
+                typeof parseData[key] === 'string') {
+              try {
+                parseData[key] = JSON.parse(parseData[key])
+              } catch (e) {
+                //
+              }
+            }
+          }
+          return JSON.stringify(parseData)
+        } catch (e) {
+          return ''
+        }
+      },
       ...mapGetters({
         websocket: 'websocket',
         socketState: 'socketState'
       })
+    },
+    watch: {
+      websocket: function (val) {
+        if (val) {
+          this.websocket.onmessage = (m) => this.handleMessage(m.data)
+        }
+      },
+      copySucceeded: function (val) {
+        if (val) {
+          setTimeout(() => {
+            this.copySucceeded = false
+          }, 1000)
+        }
+      }
+    },
+    methods: {
+      sendMessage () {
+        if (this.websocket && this.wsRequestMessage) {
+          this.websocket.send(this.wsRequestMessage)
+        }
+      },
+      handleMessage (message) {
+        this.wsResponseMessage = message
+      },
+      handleCopyStatus () {
+        this.copySucceeded = true
+      }
+    },
+    components: {
+      JsonTree
     }
   }
 </script>
 
 <style lang="scss" scoped>
+  .area-theen-second * {
+    font-family: 'Source Code Pro', sans-seri
+  }
 </style>
