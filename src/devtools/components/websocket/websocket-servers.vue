@@ -58,15 +58,11 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
-  import { getEnvConfig } from '../../tools/backend/index'
 
   export default {
     data: () => ({
       serverOptions: [
-        {value: getEnvConfig('DEV'), label: 'Dev'},
-        {value: getEnvConfig('QA'), label: 'QA'},
-        {value: getEnvConfig('UAT'), label: 'Uat'},
-        {value: getEnvConfig('LIVE'), label: 'Live'}
+        {value: 'wss://echo.websocket.org', label: 'Echo'}
       ],
       server: null
     }),
@@ -86,8 +82,8 @@
       connectWebsocket () {
         let ws = new WebSocket(this.server)
         this.setSocketState(0)
-        ws.onopen = () => this.setSocketState(1)
-        ws.onclose = () => this.setSocketState(3)
+        ws.onopen = () => this.onOpenWebSocket()
+        ws.onclose = () => this.onCloseWebSocket()
         this.setWebsocket(ws)
       },
       disconnectWebsocket () {
@@ -100,6 +96,24 @@
       resetWebsocket () {
         this.disconnectWebsocket()
         this.setWebsocket(null)
+      },
+      onOpenWebSocket () {
+        this.setSocketState(1)
+        this.$message({
+          center: true,
+          showClose: true,
+          message: 'Websocket was connected.',
+          type: 'success'
+        })
+      },
+      onCloseWebSocket () {
+        this.setSocketState(3)
+        this.$message({
+          center: true,
+          showClose: true,
+          message: 'Websocket was disconnected.',
+          type: 'warning'
+        })
       },
       ...mapActions([
         'setWebsocket',

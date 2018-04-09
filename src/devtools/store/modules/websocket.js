@@ -2,13 +2,15 @@
 const state = {
   websocket: null,
   socketState: 3, // 0: Connecting, 1: Connected, 3: Closed
-  socketMessage: ''
+  socketMessages: []
 }
 
 // getters
 const getters = {
   websocket: state => state.websocket,
-  socketState: state => state.socketState
+  socketState: state => state.socketState,
+  socketMessages: state => state.socketMessages,
+  socketLastMessage: state => state.socketMessages[0]
 }
 
 // actions

@@ -1,7 +1,7 @@
 
 module.exports = {
   name: 'Theen Devtools',
-  version: '1.0.0',
+  version: '1.1.0',
   description: 'Theen Devtools Chrome Extension',
   author: 'yura',
   manifest_version: 2,
