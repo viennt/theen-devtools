@@ -9,7 +9,7 @@
         <el-option
           v-for="item in serverOptions"
           :key="item.value"
-          :label="item.label"
+          :label="item.name"
           :value="item.value">
         </el-option>
       </el-select>
@@ -61,15 +61,13 @@
 
   export default {
     data: () => ({
-      serverOptions: [
-        {value: 'wss://echo.websocket.org', label: 'Echo'}
-      ],
       server: null
     }),
     computed: {
       ...mapGetters({
         websocket: 'websocket',
-        socketState: 'socketState'
+        socketState: 'socketState',
+        serverOptions: 'allServers'
       })
     },
     methods: {
