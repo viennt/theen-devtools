@@ -1,9 +1,11 @@
 <template>
   <el-col
-    class="area-theen-first text-selection-disabled scroll-list"
-    :xs="24" :sm="8" ref="scrollList">
-    
-    <div v-if="!!websocketLogs && !!websocketLogs.length">
+    class="area-theen-first text-selection-disabled"
+    :xs="24" :sm="8">
+
+    <div v-if="!!websocketLogs && !!websocketLogs.length"
+      v-chat-scroll="{always: false, smooth: true}"
+      class="scroll-list height-100">
       <div v-for="wsLog in websocketLogs" :key="wsLog.id"
         @click="selectLog(wsLog)">
         <el-alert
@@ -29,8 +31,8 @@
     }),
     methods: {
       scrollToEnd: function () {
-        const $el = this.$refs.scrollList
-        $el.scrollTop = $el.scrollHeight - $el.clientHeight
+        // const $el = this.$el.querySelector('#container')
+        // $el.scrollTop = $el.scrollHeight
       },
       ...mapActions([
         'selectLog'
@@ -38,7 +40,7 @@
     },
     watch: {
       websocketLogs: function () {
-        this.scrollToEnd()
+        // this.scrollToEnd()
       }
     }
   }

@@ -8,9 +8,11 @@ import store from './store'
  * Import third-party
  ****************************************/
 import Element from 'element-ui'
+import VueClipboard from 'vue-clipboard2'
+import VueChatScroll from 'vue-chat-scroll'
+
 import VueCodemirror from 'vue-codemirror'
 import 'codemirror/mode/javascript/javascript.js'
-import VueClipboard from 'vue-clipboard2'
 
 import VueRx from 'vue-rx'
 import { Observable } from 'rxjs/Observable'
@@ -32,6 +34,8 @@ import './scss/main.scss'
  * Declare third-party
  ****************************************/
 Vue.use(Element)
+Vue.use(VueClipboard)
+Vue.use(VueChatScroll)
 Vue.use(VueCodemirror, {
   options: {
     tabSize: 4,
@@ -43,7 +47,6 @@ Vue.use(VueCodemirror, {
     theme: 'eclipse'
   }
 })
-Vue.use(VueClipboard)
 Vue.use(VueRx, {
   Observable,
   Subject,

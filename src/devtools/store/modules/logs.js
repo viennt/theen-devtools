@@ -27,6 +27,11 @@ const actions = {
 const mutations = {
   PUSH_LOG (state, payload) {
     state.all.push(payload)
+    // TODO: Get MAX_LOG_ITEMS from settings
+    let MAX_LOG_ITEMS = 15
+    if (state.all.length > MAX_LOG_ITEMS) {
+      state.all.shift()
+    }
   },
   SELECT_LOG (state, payload) {
     state.selected = payload
