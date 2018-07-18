@@ -6,7 +6,7 @@
     <div v-if="!isLoading">
       <div v-if="!!selectedLog"
         class="selection-black">
-        <div style="font-size: 16px">
+        <div style="font-size: 16px; word-wrap: break-word;">
           {{ selectedLog.title || 'Unknown Log' }}
         </div>
 
