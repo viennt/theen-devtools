@@ -11,7 +11,12 @@
         <el-alert
           :type="wsLog.type"
           :title="wsLog.title"
-          class="list-item">
+          :show-icon="!!selectedLog && wsLog.id === selectedLog.id"
+          :class="{
+            'list-item': true,
+            active: !!selectedLog && wsLog.id === selectedLog.id
+          }"
+          @close="removeLog(wsLog)">
         </el-alert>
       </div>
     </div>
@@ -27,7 +32,8 @@
 
   export default {
     computed: mapGetters({
-      websocketLogs: 'allLogs'
+      websocketLogs: 'allLogs',
+      selectedLog: 'selectedLog'
     }),
     methods: {
       scrollToEnd: function () {
@@ -35,7 +41,8 @@
         // $el.scrollTop = $el.scrollHeight
       },
       ...mapActions([
-        'selectLog'
+        'selectLog',
+        'removeLog'
       ])
     },
     watch: {
@@ -55,7 +62,8 @@
     white-space: nowrap;
     border-radius: 0;
   }
-  .list-item:hover {
-    font-weight: 600;
+  .list-item:hover,
+  .list-item.active {
+    font-weight: 900;
   }
 </style>
