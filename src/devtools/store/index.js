@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import logs from './modules/logs'
 import servers from './modules/servers'
+import requests from './modules/requests'
 import websocket from './modules/websocket'
 
 Vue.use(Vuex)
@@ -13,6 +14,7 @@ export default new Vuex.Store({
   modules: {
     logs,
     servers,
+    requests,
     websocket
   },
   strict: debug

@@ -1,17 +1,17 @@
 <template>
   <el-row>
-    <WebsocketConfig />
+    <WebsocketHistory />
     <WebsocketRunner />
   </el-row>
 </template>
 
 <script>
-  import WebsocketConfig from './websocket-config'
+  import WebsocketHistory from './websocket-history'
   import WebsocketRunner from './websocket-runner'
 
   export default {
     components: {
-      WebsocketConfig,
+      WebsocketHistory,
       WebsocketRunner
     }
   }

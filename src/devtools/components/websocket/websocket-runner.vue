@@ -2,49 +2,53 @@
   <el-col
     class="area-theen-second scroll-list"
     :xs="24" :sm="16">
-    <el-tabs type="card">
+    <!-- <el-tabs type="card">
       <el-tab-pane :label="'New Tab'" closable>
-
-        <!-- Send Request -->
-        <div class="panel-theen">
-            <el-button v-if="socketState === 1"
-              @click="sendMessage()"
-              type="primary"
-              icon="el-icon-caret-right"
-              size="small">Send
-            </el-button>
-            <el-button v-else
-              disabled
-              type="info"
-              icon="el-icon-caret-right"
-              size="small">Send
-            </el-button>
-        </div>
-        <div class="panel-theen-light">
-          <strong class="text-theen">Request:</strong>
-          <codemirror v-model="wsRequestMessage">
-          </codemirror>
-        </div>
-
-        <!-- Parse Response -->
-        <div class="panel-theen-light">
-          <strong class="text-theen">Response:</strong>
-          <JsonTree :raw="jsonTreeData" :level="0"></JsonTree>
-          <el-tooltip v-if="wsResponseMessage.trim()"
-            :content="!copySucceeded ? 'Click to copy' : 'Copied!'"
-            class="item" effect="dark" placement="top">
-            <div
-              v-clipboard:copy="wsResponseMessage"
-              v-clipboard:success="handleCopyStatus"
-              class="panel-theen clickable">
-              <span class="text-grey" v-html="wsResponseMessage"></span>
-            </div>
-          </el-tooltip>
-        </div>
 
       </el-tab-pane>
       <el-tab-pane :label="'+'" disabled></el-tab-pane>
-    </el-tabs>
+    </el-tabs> -->
+    <div class="panel-theen-light border-bottom">
+      <WebSocketServer />
+    </div>
+
+    <!-- Send Request -->
+    <div class="panel-theen">
+        <el-button v-if="socketState === 1"
+          @click="sendMessage()"
+          type="primary"
+          icon="el-icon-caret-right"
+          size="small">Send
+        </el-button>
+        <el-button v-else
+          disabled
+          type="info"
+          icon="el-icon-caret-right"
+          size="small">Send
+        </el-button>
+    </div>
+    <div class="panel-theen-light">
+      <strong class="text-theen">Request:</strong>
+      <codemirror v-model="wsRequestMessage">
+      </codemirror>
+    </div>
+
+    <!-- Parse Response -->
+    <div v-if="wsResponseMessage.trim()"
+      class="panel-theen-light">
+      <strong class="text-theen">Response:</strong>
+      <JsonTree :raw="jsonTreeData" :level="0"></JsonTree>
+      <el-tooltip
+        :content="!copySucceeded ? 'Click to copy' : 'Copied!'"
+        class="item" effect="dark" placement="top">
+        <div
+          v-clipboard:copy="wsResponseMessage"
+          v-clipboard:success="handleCopyStatus"
+          class="panel-theen clickable">
+          <span class="text-grey" v-html="wsResponseMessage"></span>
+        </div>
+      </el-tooltip>
+    </div>
   </el-col>
 </template>
 
@@ -52,14 +56,13 @@
   import { mapGetters } from 'vuex'
 
   import JsonTree from 'vue-json-tree'
+  import WebSocketServer from './websocket-servers'
 
   export default {
     data: () => ({
       wsRequestMessage: `
-
 `,
       wsResponseMessage: `
-
 `,
       copySucceeded: null
     }),
@@ -118,7 +121,8 @@
       }
     },
     components: {
-      JsonTree
+      JsonTree,
+      WebSocketServer
     }
   }
 </script>
