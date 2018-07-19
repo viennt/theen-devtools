@@ -1,10 +1,7 @@
 // initial state
 const state = {
   all: [
-    {name: 'Echo', value: 'wss://echo.websocket.org'},
-    {name: 'DEV', value: 'wss://echo.websocket.org?DEV'},
-    {name: 'QA', value: 'wss://echo.websocket.org?QA'},
-    {name: 'LIVE', value: 'wss://echo.websocket.org?LIVE'}
+    {name: 'Echo', value: 'wss://echo.websocket.org'}
   ],
   selected: undefined
 }

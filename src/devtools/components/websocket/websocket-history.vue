@@ -10,7 +10,6 @@
         @click="selectRequest(wsRequest)">
         <el-alert
           :title="`${wsRequest.requestedAt} - ${wsRequest.server && wsRequest.server.name || 'Unknown'} - ${wsRequest.message}`"
-          :show-icon="!!selectedRequest && wsRequest.id === selectedRequest.id"
           :class="{
             'list-item': true,
             active: !!selectedRequest && wsRequest.id === selectedRequest.id

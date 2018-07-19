@@ -92,7 +92,8 @@
       ...mapGetters({
         websocket: 'websocket',
         socketState: 'socketState',
-        activeServer: 'selectedServer'
+        selectedServer: 'selectedServer',
+        selectedRequest: 'selectedRequest'
       })
     },
     watch: {
@@ -107,6 +108,10 @@
             this.copySucceeded = false
           }, 1000)
         }
+      },
+      selectedRequest: function (request) {
+        this.wsRequestMessage = (request && request.message) || `
+`
       }
     },
     methods: {
@@ -127,7 +132,7 @@
         let requestedMoment = Vue.moment()
         let requestItem = {
           id: requestedMoment.valueOf(),
-          server: this.activeServer,
+          server: this.selectedServer,
           requestedAt: requestedMoment.format('HH:mm:ss DD-MM-YYYY'),
           message: this.wsRequestMessage
         }

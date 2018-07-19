@@ -6,7 +6,7 @@
         v-model="server"
         placeholder="Server"
         size="small"
-        @change="selectServerByAddress(server)">
+        @change="onChangeServer">
         <el-option
           v-for="item in serverOptions"
           :key="item.value"
@@ -68,6 +68,7 @@
       ...mapGetters({
         websocket: 'websocket',
         socketState: 'socketState',
+        allServers: 'allServers',
         serverOptions: 'allServers',
         selectedServer: 'selectedServer',
         selectedRequest: 'selectedRequest'
@@ -81,6 +82,13 @@
         ws.onclose = () => this.onCloseWebSocket()
         this.setWebsocket(ws)
         this.selectServerByAddress(this.server)
+        // Check if server is new one, then add to server list
+        let index = this.allServers.findIndex(
+          server => server.value === this.server
+        )
+        if (index < 0) {
+          this.addServer({name: this.server, value: this.server})
+        }
       },
       disconnectWebsocket () {
         if (this.websocket) {
@@ -111,15 +119,26 @@
           type: 'warning'
         })
       },
+      onChangeServer (serverValue) {
+        this.selectRequest(undefined)
+        this.selectServerByAddress(serverValue)
+      },
       ...mapActions([
         'setWebsocket',
         'setSocketState',
+        'addServer',
+        'selectRequest',
         'selectServerByAddress'
       ])
     },
     watch: {
       server: function () {
         this.resetWebsocket()
+      },
+      selectedRequest: function (request) {
+        if (request) {
+          this.server = request.server.value
+        }
       }
     },
     mounted () {
