@@ -30,6 +30,11 @@ const actions = {
 const mutations = {
   PUSH_REQUEST (state, payload) {
     state.all.push(payload)
+    // TODO: Get MAX_REQUEST_ITEMS from settings
+    let MAX_REQUEST_ITEMS = 20
+    if (state.all.length > MAX_REQUEST_ITEMS) {
+      state.all.shift()
+    }
   },
   SELECT_REQUEST (state, payload) {
     state.selected = payload

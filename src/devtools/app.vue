@@ -56,7 +56,7 @@
         </el-tooltip>
 
         <el-button
-          @click="clearLogs()">
+          @click="refresh()">
           <i class="el-icon-refresh"></i>
           <span class="hidden-xs-only">Refresh</span>
         </el-button>
@@ -83,12 +83,20 @@
         return this.windowWidth < 768
       }
     },
-    methods: mapActions([
-      'clearLogs',
-      'selectLog',
-      'selectRequest',
-      'selectServer'
-    ]),
+    methods: {
+      refresh () {
+        if (this.$route.name === 'logs') {
+          this.clearLogs()
+        }
+        if (this.$route.name === 'websocket') {
+          this.clearRequests()
+        }
+      },
+      ...mapActions([
+        'clearLogs',
+        'clearRequests'
+      ])
+    },
     mounted () {
       this.$nextTick(() => {
         window.addEventListener('load', (e) => {
