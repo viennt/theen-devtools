@@ -112,6 +112,8 @@
       selectedRequest: function (request) {
         this.wsRequestMessage = (request && request.message) || `
 `
+        this.wsResponseMessage = `
+`
       }
     },
     methods: {

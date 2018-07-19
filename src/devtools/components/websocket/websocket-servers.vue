@@ -81,14 +81,14 @@
         ws.onopen = () => this.onOpenWebSocket()
         ws.onclose = () => this.onCloseWebSocket()
         this.setWebsocket(ws)
-        this.selectServerByAddress(this.server)
         // Check if server is new one, then add to server list
         let index = this.allServers.findIndex(
           server => server.value === this.server
         )
         if (index < 0) {
-          this.addServer({name: this.server, value: this.server})
+          this.addServer({name: this.server.split('?')[0], value: this.server})
         }
+        this.selectServerByAddress(this.server)
       },
       disconnectWebsocket () {
         if (this.websocket) {

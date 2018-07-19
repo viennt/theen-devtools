@@ -1,7 +1,7 @@
 
 module.exports = {
   name: 'Theen Devtools',
-  version: '1.1.0',
+  version: '1.2.0',
   description: 'Theen Devtools Chrome Extension',
   author: 'yura',
   manifest_version: 2,
@@ -21,7 +21,7 @@ module.exports = {
     'identity.email'
   ],
   browser_action: {
-    default_title: 'Theen Devtools',
+    default_title: 'Theen Devtools'
     // default_popup: 'pages/popup.html'
   },
   background: {
