@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 
 import logs from './modules/logs'
 import servers from './modules/servers'
@@ -17,5 +18,6 @@ export default new Vuex.Store({
     requests,
     websocket
   },
-  strict: debug
+  strict: debug,
+  plugins: [createPersistedState()]
 })

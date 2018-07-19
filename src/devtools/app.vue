@@ -24,7 +24,7 @@
           class="item"
           effect="dark"
           content="Websocket"
-          placement="bottom-start">
+          placement="bottom">
           <el-menu-item index="websocket">
             <i class="el-icon-sort"></i>
             <span class="hidden-xs-only">Websocket</span>
@@ -36,7 +36,7 @@
           class="item"
           effect="dark"
           content="JSON Parser"
-          placement="bottom-start">
+          placement="bottom">
           <el-menu-item index="json-parser">
             <i class="el-icon-news"></i>
             <span class="hidden-xs-only">JSON Parser</span>
@@ -48,7 +48,7 @@
           class="item"
           effect="dark"
           content="Settings"
-          placement="bottom-start">
+          placement="bottom">
           <el-menu-item index="settings">
             <i class="el-icon-setting"></i>
             <span class="hidden-xs-only">Settings</span>
