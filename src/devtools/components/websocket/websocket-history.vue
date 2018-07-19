@@ -9,7 +9,7 @@
       <div v-for="wsRequest in websocketRequests" :key="wsRequest.id"
         @click="selectRequest(wsRequest)">
         <el-alert
-          :title="wsRequest.requestedAt"
+          :title="`${wsRequest.requestedAt} - ${wsRequest.server && wsRequest.server.name || 'Unknown'} - ${wsRequest.message}`"
           :show-icon="!!selectedRequest && wsRequest.id === selectedRequest.id"
           :class="{
             'list-item': true,
@@ -35,9 +35,6 @@
       selectedRequest: 'selectedRequest'
     }),
     methods: {
-      customFn: function () {
-        //
-      },
       ...mapActions([
         'selectRequest',
         'removeRequest'
@@ -45,3 +42,18 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .list-item {
+    overflow: hidden;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    cursor: pointer;
+    transition: color 0.15s;
+    white-space: nowrap;
+    border-radius: 0;
+  }
+  .list-item:hover,
+  .list-item.active {
+    font-weight: 900;
+  }
+</style>

@@ -10,6 +10,7 @@ import store from './store'
 import Element from 'element-ui'
 import VueClipboard from 'vue-clipboard2'
 import VueChatScroll from 'vue-chat-scroll'
+import VueMoment from 'vue-moment'
 
 import VueCodemirror from 'vue-codemirror'
 import 'codemirror/mode/javascript/javascript.js'
@@ -36,6 +37,7 @@ import './scss/main.scss'
 Vue.use(Element)
 Vue.use(VueClipboard)
 Vue.use(VueChatScroll)
+Vue.use(VueMoment)
 Vue.use(VueCodemirror, {
   options: {
     tabSize: 4,

@@ -5,7 +5,8 @@
       <el-select
         v-model="server"
         placeholder="Server"
-        size="small">
+        size="small"
+        @change="selectServerByAddress(server)">
         <el-option
           v-for="item in serverOptions"
           :key="item.value"
@@ -67,22 +68,19 @@
       ...mapGetters({
         websocket: 'websocket',
         socketState: 'socketState',
-        serverOptions: 'allServers'
+        serverOptions: 'allServers',
+        selectedServer: 'selectedServer',
+        selectedRequest: 'selectedRequest'
       })
     },
     methods: {
-      storeServer () {
-        let options = {
-          server: this.server
-        }
-        chrome.storage.sync.set({'theenOptions': options})
-      },
       connectWebsocket () {
         let ws = new WebSocket(this.server)
         this.setSocketState(0)
         ws.onopen = () => this.onOpenWebSocket()
         ws.onclose = () => this.onCloseWebSocket()
         this.setWebsocket(ws)
+        this.selectServerByAddress(this.server)
       },
       disconnectWebsocket () {
         if (this.websocket) {
@@ -115,19 +113,21 @@
       },
       ...mapActions([
         'setWebsocket',
-        'setSocketState'
+        'setSocketState',
+        'selectServerByAddress'
       ])
     },
     watch: {
       server: function () {
-        this.storeServer()
         this.resetWebsocket()
       }
     },
     mounted () {
-      chrome.storage.sync.get(['theenOptions'], (result) => {
-        this.server = (!!result.theenOptions && result.theenOptions.server) || 'DEV'
-      })
+      if (this.selectedRequest && this.selectedRequest.server) {
+        this.server = this.selectedRequest.server.value
+      } else if (this.selectedServer) {
+        this.server = this.selectedServer.value
+      }
     }
   }
 </script>

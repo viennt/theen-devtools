@@ -10,6 +10,9 @@ import websocket from './modules/websocket'
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
+const persistedoptions = {
+  paths: ['logs', 'servers', 'requests']
+}
 
 export default new Vuex.Store({
   modules: {
@@ -19,5 +22,5 @@ export default new Vuex.Store({
     websocket
   },
   strict: debug,
-  plugins: [createPersistedState()]
+  plugins: [createPersistedState(persistedoptions)]
 })

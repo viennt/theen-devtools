@@ -53,7 +53,8 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import Vue from 'vue'
+  import { mapGetters, mapActions } from 'vuex'
 
   import JsonTree from 'vue-json-tree'
   import WebSocketServer from './websocket-servers'
@@ -90,7 +91,8 @@
       },
       ...mapGetters({
         websocket: 'websocket',
-        socketState: 'socketState'
+        socketState: 'socketState',
+        activeServer: 'selectedServer'
       })
     },
     watch: {
@@ -109,16 +111,37 @@
     },
     methods: {
       sendMessage () {
-        if (this.websocket && this.wsRequestMessage) {
-          this.websocket.send(this.wsRequestMessage)
+        if (!this.websocket) {
+          return
         }
+        if (!this.wsRequestMessage || !this.wsRequestMessage.trim()) {
+          this.$message({
+            center: true,
+            showClose: true,
+            message: 'Request message cannot empty.',
+            type: 'error'
+          })
+          return
+        }
+        this.websocket.send(this.wsRequestMessage)
+        let requestedMoment = Vue.moment()
+        let requestItem = {
+          id: requestedMoment.valueOf(),
+          server: this.activeServer,
+          requestedAt: requestedMoment.format('HH:mm:ss DD-MM-YYYY'),
+          message: this.wsRequestMessage
+        }
+        this.addRequest(requestItem)
       },
       handleMessage (message) {
         this.wsResponseMessage = message
       },
       handleCopyStatus () {
         this.copySucceeded = true
-      }
+      },
+      ...mapActions([
+        'addRequest'
+      ])
     },
     components: {
       JsonTree,

@@ -84,7 +84,10 @@
       }
     },
     methods: mapActions([
-      'clearLogs'
+      'clearLogs',
+      'selectLog',
+      'selectRequest',
+      'selectServer'
     ]),
     mounted () {
       this.$nextTick(() => {
