@@ -12,6 +12,7 @@
           :type="wsLog.type"
           :title="wsLog.title"
           :show-icon="!!selectedLog && wsLog.id === selectedLog.id"
+          :closable="isShowCloseButton"
           :class="{
             'list-item': true,
             active: !!selectedLog && wsLog.id === selectedLog.id
@@ -33,7 +34,8 @@
   export default {
     computed: mapGetters({
       websocketLogs: 'allLogs',
-      selectedLog: 'selectedLog'
+      selectedLog: 'selectedLog',
+      isShowCloseButton: 'isRemovableLogItem'
     }),
     methods: {
       scrollToEnd: function () {

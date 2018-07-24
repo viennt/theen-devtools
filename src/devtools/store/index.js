@@ -6,12 +6,13 @@ import logs from './modules/logs'
 import servers from './modules/servers'
 import requests from './modules/requests'
 import websocket from './modules/websocket'
+import settings from './modules/settings'
 
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
 const persistedoptions = {
-  paths: ['logs', 'servers', 'requests']
+  paths: ['logs', 'servers', 'requests', 'settings']
 }
 
 export default new Vuex.Store({
@@ -19,7 +20,8 @@ export default new Vuex.Store({
     logs,
     servers,
     requests,
-    websocket
+    websocket,
+    settings
   },
   strict: debug,
   plugins: [createPersistedState(persistedoptions)]

@@ -5,7 +5,7 @@
       <el-select
         v-model="server"
         placeholder="Server"
-        size="small"
+        size="mini"
         @change="onChangeServer">
         <el-option
           v-for="item in serverOptions"
@@ -19,7 +19,7 @@
     <!-- Input server -->
     <el-col :xs="13" :sm="13">
       <el-input
-        size="small"
+        size="mini"
         placeholder="Server"
         v-model="server">
       </el-input>
@@ -36,21 +36,21 @@
           :style="{width: '100%'}"
           type="info"
           icon="el-icon-sort"
-          size="small">
+          size="mini">
         </el-button>
         <el-button v-else-if="socketState === 0"
           :style="{width: '100%'}"
           disabled
           type="info"
           icon="el-icon-loading"
-          size="small">
+          size="mini">
         </el-button>
         <el-button v-else
           @click="disconnectWebsocket()"
           :style="{width: '100%'}"
           type="primary"
           icon="el-icon-sort"
-          size="small">
+          size="mini">
         </el-button>
       </el-tooltip>
     </el-col>

@@ -12,8 +12,11 @@ const getters = {
 
 // actions
 const actions = {
-  addLog ({ commit }, log) {
+  addLog ({ commit, state, rootState }, log) {
     commit('PUSH_LOG', log)
+    if (state.all.length > rootState.settings.maxLogsItems) {
+      commit('REMOVE_LOG_BY_INDEX', 0)
+    }
   },
   selectLog ({ commit }, log) {
     commit('SELECT_LOG', log)
@@ -30,11 +33,6 @@ const actions = {
 const mutations = {
   PUSH_LOG (state, payload) {
     state.all.push(payload)
-    // TODO: Get MAX_LOG_ITEMS from settings
-    let MAX_LOG_ITEMS = 20
-    if (state.all.length > MAX_LOG_ITEMS) {
-      state.all.shift()
-    }
   },
   SELECT_LOG (state, payload) {
     state.selected = payload
@@ -42,6 +40,9 @@ const mutations = {
   REMOVE_LOG (state, payload) {
     let index = state.all.indexOf(payload)
     if (index > -1) state.all.splice(index, 1)
+  },
+  REMOVE_LOG_BY_INDEX (state, payload) {
+    if (payload > -1) state.all.splice(payload, 1)
   },
   CLEAR_LOGS (state) {
     state.all = []

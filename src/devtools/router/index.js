@@ -4,14 +4,16 @@ import logs from '../pages/logs'
 import websocket from '../pages/websocket'
 import jsonParser from '../pages/json-parser'
 import settings from '../pages/settings'
+import logSettings from '../pages/settings/log-settings.vue'
+import serverSettings from '../pages/settings/server-settings.vue'
+import advancedSettings from '../pages/settings/advanced-settings.vue'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      redirect: '/logs'
+      path: '/', redirect: '/logs'
     },
     {
       path: '/logs',
@@ -25,13 +27,35 @@ export default new Router({
     },
     {
       path: '/json-parser',
-      name: 'json-parser',
+      name: 'jsonParser',
       component: jsonParser
     },
     {
       path: '/settings',
       name: 'settings',
-      component: settings
+      component: settings,
+      children: [
+        {
+          path: 'logs',
+          name: 'settings-log',
+          component: logSettings
+        },
+        {
+          path: 'servers',
+          name: 'settings-server',
+          component: serverSettings
+        },
+        {
+          path: 'advanced',
+          name: 'settings-advanced',
+          component: advancedSettings
+        },
+        {
+          path: 'theen',
+          name: 'settings-theen',
+          component: advancedSettings
+        }
+      ]
     }
   ]
 })

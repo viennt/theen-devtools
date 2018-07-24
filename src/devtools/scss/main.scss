@@ -92,6 +92,10 @@ body {
     border-left: 1px solid rgba(0, 0, 0, 0.12);
   }
 }
+.area-theen-full {
+  height: calc(100vh - 42px);
+}
+
 
 .clickable {
   cursor: pointer;

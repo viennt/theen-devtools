@@ -14,18 +14,24 @@
 
     <!-- Send Request -->
     <div class="panel-theen">
-        <el-button v-if="socketState === 1"
-          @click="sendMessage()"
-          type="primary"
-          icon="el-icon-caret-right"
-          size="small">Send
-        </el-button>
-        <el-button v-else
-          disabled
-          type="info"
-          icon="el-icon-caret-right"
-          size="small">Send
-        </el-button>
+      <el-row :gutter="5">
+        <el-col :xs="5" :sm="5" :offset="19">
+          <el-button v-if="socketState === 1"
+            @click="sendMessage()"
+            :style="{width: '100%'}"
+            type="primary"
+            icon="el-icon-caret-right"
+            size="mini">Send
+          </el-button>
+          <el-button v-else
+            disabled
+            :style="{width: '100%'}"
+            type="info"
+            icon="el-icon-caret-right"
+            size="mini">Send
+          </el-button>
+        </el-col>
+      </el-row>
     </div>
     <div class="panel-theen-light">
       <strong class="text-theen">Request:</strong>
