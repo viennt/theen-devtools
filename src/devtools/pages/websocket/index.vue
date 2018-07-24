@@ -6,8 +6,8 @@
 </template>
 
 <script>
-  import WebsocketHistory from './websocket-history'
-  import WebsocketRunner from './websocket-runner'
+  import WebsocketHistory from '../../components/WebsocketHistory'
+  import WebsocketRunner from '../../components/WebsocketRunner'
 
   export default {
     components: {

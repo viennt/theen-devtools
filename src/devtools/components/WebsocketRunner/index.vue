@@ -9,7 +9,7 @@
       <el-tab-pane :label="'+'" disabled></el-tab-pane>
     </el-tabs> -->
     <div class="panel-theen-light border-bottom">
-      <WebSocketServer />
+      <WebsocketServer />
     </div>
 
     <!-- Send Request -->
@@ -57,7 +57,7 @@
   import { mapGetters, mapActions } from 'vuex'
 
   import JsonTree from 'vue-json-tree'
-  import WebSocketServer from './websocket-servers'
+  import WebsocketServer from '../WebsocketServer'
 
   export default {
     data: () => ({
@@ -152,7 +152,7 @@
     },
     components: {
       JsonTree,
-      WebSocketServer
+      WebsocketServer
     }
   }
 </script>

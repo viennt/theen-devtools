@@ -12,17 +12,20 @@
 
         <JsonTree :raw="selectedLogMessage" :level="0"></JsonTree>
 
-        <el-tooltip v-if="!!selectedLog.more"
+        <el-tooltip v-if="!!selectedLog.moreData"
           :content="!copySucceeded ? 'Click to copy' : 'Copied!'"
           class="item" effect="dark" placement="top">
           <div
             v-clipboard:copy="slackMessageToCopy"
             v-clipboard:success="handleCopyStatus"
             class="panel-theen clickable">
-            <div v-for="infor in selectedLog.more" :key="infor.name">
-              <strong class="text-theen">{{ infor.name || '-' }} </strong>
-              <span class="text-grey" v-html="infor.value"></span>
-            </div>
+            <template v-for="infor in selectedLog.moreData">
+              <div :key="infor.name + 'line'">
+                <strong class="text-theen">{{ infor.name || '-' }} </strong>
+                <span class="text-grey" v-html="infor.value"></span>
+              </div>
+              <br :key="infor.name + 'break-line'"/>
+            </template>
           </div>
         </el-tooltip>
       </div>
@@ -51,8 +54,8 @@
     }),
     computed: {
       selectedLogMessage: function () {
-        if (!!this.selectedLog && !!this.selectedLog.data) {
-          return JSON.stringify(this.selectedLog.data)
+        if (!!this.selectedLog && !!this.selectedLog.jsonTreeData) {
+          return JSON.stringify(this.selectedLog.jsonTreeData)
         } else {
           return JSON.stringify({})
         }
@@ -66,13 +69,15 @@
         this.isLoading = true
         setTimeout(() => { this.isLoading = false }, 500)
 
-        if (!log || !log.more || !log.more.length) {
+        if (!log || !log.moreData) {
           return
         }
         this.slackMessageToCopy = ''
-        log.more.forEach(infor => {
-          this.slackMessageToCopy += `${infor.name} ${infor.value}\n`
-        })
+        for (var key in log.moreData) {
+          if (!log.moreData.hasOwnProperty(key)) continue
+          var infor = log.moreData[key]
+          this.slackMessageToCopy += `${infor.name} ${infor.label}\n`
+        }
         this.slackMessageToCopy = this.slackMessageToCopy.replace(new RegExp('<br><br>', 'g'), '\n')
         this.slackMessageToCopy = this.slackMessageToCopy.replace(new RegExp('<br>', 'g'), '\n')
       },

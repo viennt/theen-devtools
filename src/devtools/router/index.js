@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import logs from '../components/logs/index'
-import websocket from '../components/websocket/index'
-import jsonParser from '../components/json-parser/index'
-import settings from '../components/settings/index'
+import logs from '../pages/logs'
+import websocket from '../pages/websocket'
+import jsonParser from '../pages/json-parser'
+import settings from '../pages/settings'
 
 Vue.use(Router)
 
