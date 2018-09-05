@@ -55,6 +55,10 @@ Vue.use(VueRx, {
   Subscription
 })
 
+Vue.filter('highlight', function (words, query) {
+  return words.replace(query, '<span class=\'highlight\'>' + query + '</span>')
+})
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

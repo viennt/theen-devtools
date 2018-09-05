@@ -1,9 +1,9 @@
 
 module.exports = {
   name: 'Theen Devtools',
-  version: '1.2.0',
+  version: '1.2.2',
   description: 'Theen Devtools Chrome Extension',
-  author: 'yura',
+  author: 'Vien (Vic) T. NGUYEN',
   manifest_version: 2,
   icons: { '16': 'icons/16.png', '128': 'icons/128.png' },
   permissions: [

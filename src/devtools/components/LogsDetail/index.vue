@@ -22,12 +22,19 @@
             <template v-for="infor in selectedLog.moreData">
               <div :key="infor.name + 'line'">
                 <strong class="text-theen">{{ infor.name || '-' }} </strong>
-                <span class="text-grey" v-html="infor.value"></span>
+                <span class="text-grey" v-html="highlight(infor.value)"></span>
               </div>
               <br :key="infor.name + 'break-line'"/>
             </template>
           </div>
         </el-tooltip>
+
+        <el-input
+          class="search-input"
+          placeholder="Please input"
+          size="mini"
+          v-model="searchingQuery">
+        </el-input>
       </div>
 
       <el-alert v-else
@@ -50,7 +57,8 @@
     data: () => ({
       isLoading: false,
       slackMessageToCopy: 'Nothing!',
-      copySucceeded: null
+      copySucceeded: null,
+      searchingQuery: null
     }),
     computed: {
       selectedLogMessage: function () {
@@ -92,6 +100,14 @@
     methods: {
       handleCopyStatus () {
         this.copySucceeded = true
+      },
+      highlight (content) {
+        if (!this.searchingQuery) {
+          return content
+        }
+        return content.replace(new RegExp(this.searchingQuery, 'gi'), match => {
+          return '<span class="theen-highlight">' + match + '</span>'
+        })
       }
     },
     components: {
@@ -106,5 +122,10 @@
   }
   .area-theen-second .selection-black {
     padding: 8px 8px;
+  }
+  .search-input {
+    position: fixed;
+    bottom: 0;
+    left: 0;
   }
 </style>
