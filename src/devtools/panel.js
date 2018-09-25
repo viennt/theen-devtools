@@ -1,3 +1,4 @@
+import devtools from '@vue/devtools'
 import Vue from 'vue'
 
 import app from './app'
@@ -61,6 +62,10 @@ Vue.filter('highlight', function (words, query) {
 
 Vue.config.productionTip = false
 
+if (process.env.NODE_ENV === 'development') {
+  devtools.connect(/* host, */ 8089)
+}
+
 /* eslint-disable no-new */
 var root = new Vue({
   el: '#root',
@@ -87,6 +92,10 @@ var port = chrome.extension.connect({
 
 // Listen to messages from the background
 port.onMessage.addListener((content) => {
-  root.addLog(content.log)
+  let log = content.log
+  root.addLog({
+    ...log,
+    id: log.id + Math.random()
+  })
   // port.postMessage(message);
 })

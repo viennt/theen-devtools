@@ -1,13 +1,19 @@
 // initial state
 const state = {
   maxLogsItems: 20,
-  isRemovableLogItem: true
+  isRemovableLogItem: true,
+  isCopyableLogDetail: true,
+  hasJsonTreeSection: true,
+  jsonTreeObjectKey: 'jsonTreeData'
 }
 
 // getters
 const getters = {
   maxLogsItems: state => state.maxLogsItems,
-  isRemovableLogItem: state => state.isRemovableLogItem
+  isRemovableLogItem: state => state.isRemovableLogItem,
+  isCopyableLogDetail: state => state.isCopyableLogDetail,
+  hasJsonTreeSection: state => state.hasJsonTreeSection,
+  jsonTreeObjectKey: state => state.jsonTreeObjectKey
 }
 
 // actions
@@ -17,6 +23,15 @@ const actions = {
   },
   setIsRemovableLogItem ({ commit }, isShow) {
     commit('SET_IS_REMOVABLE_LOG_ITEM', isShow)
+  },
+  setIsCopyableLogDetail ({ commit }, isShow) {
+    commit('SET_IS_COPYABLE_LOG_DETAIL', isShow)
+  },
+  setHasJsonTreeSection ({ commit }, isShow) {
+    commit('SET_HAS_JSON_TREE_SECTION', isShow)
+  },
+  setJsonTreeObjectKey ({ commit }, isShow) {
+    commit('SET_JSON_TREE_OBJECT_KEY', isShow)
   }
 }
 
@@ -27,6 +42,15 @@ const mutations = {
   },
   SET_IS_REMOVABLE_LOG_ITEM (state, payload) {
     state.isRemovableLogItem = payload
+  },
+  SET_IS_COPYABLE_LOG_DETAIL (state, payload) {
+    state.isCopyableLogDetail = payload
+  },
+  SET_HAS_JSON_TREE_SECTION (state, payload) {
+    state.hasJsonTreeSection = payload
+  },
+  SET_JSON_TREE_OBJECT_KEY (state, payload) {
+    state.jsonTreeObjectKey = payload
   }
 }
 

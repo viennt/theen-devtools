@@ -27,10 +27,12 @@
   },
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
+    "devtools": "vue-devtools",
     "dev": "webpack --config ./core/webpack.dev.js --hide-modules",
     "build": "webpack --config ./core/webpack.prod.js -p --progress  --hide-modules --colors"
   },
   "devDependencies": {
+    "@vue/devtools": "^4.1.5",
     "archiver": "^2.1.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",

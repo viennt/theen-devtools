@@ -36,6 +36,6 @@ module.exports = {
     matches: ['<all_urls>'],
     all_frames: true
   }],
-  content_security_policy: "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  content_security_policy: "script-src 'self' 'unsafe-eval' http://localhost:8098; object-src 'self'",
   web_accessible_resources: [ 'panel.html', 'js/content.js' ]
 }

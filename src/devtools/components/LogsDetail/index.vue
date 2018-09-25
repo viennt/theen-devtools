@@ -10,16 +10,20 @@
           {{ selectedLog.title || 'Unknown Log' }}
         </div>
 
-        <JsonTree :raw="selectedLogMessage" :level="0"></JsonTree>
+        <JsonTree
+          v-if="hasJsonTreeSection"
+          :raw="selectedLogMessage"
+          :level="0">
+        </JsonTree>
 
-        <el-tooltip v-if="!!selectedLog.moreData"
+        <el-tooltip v-if="isCopyableLogDetail && !!selectedLog['moreData']"
           :content="!copySucceeded ? 'Click to copy' : 'Copied!'"
           class="item" effect="dark" placement="top">
           <div
             v-clipboard:copy="slackMessageToCopy"
             v-clipboard:success="handleCopyStatus"
             class="panel-theen clickable">
-            <template v-for="infor in selectedLog.moreData">
+            <template v-for="infor in selectedLog['moreData']">
               <div :key="infor.name + 'line'">
                 <strong class="text-theen">{{ infor.name || '-' }} </strong>
                 <span class="text-grey" v-html="highlight(infor.value)"></span>
@@ -28,6 +32,17 @@
             </template>
           </div>
         </el-tooltip>
+
+        <div v-if="!isCopyableLogDetail"
+          class="panel-theen">
+          <template v-for="infor in selectedLog['moreData']">
+            <div :key="infor.name + 'line'">
+              <strong class="text-theen">{{ infor.name || '-' }} </strong>
+              <span class="text-grey" v-html="highlight(infor.value)"></span>
+            </div>
+            <br :key="infor.name + 'break-line'"/>
+          </template>
+        </div>
 
         <el-input
           class="search-input"
@@ -63,13 +78,16 @@
     computed: {
       selectedLogMessage: function () {
         if (!!this.selectedLog && !!this.selectedLog.jsonTreeData) {
-          return JSON.stringify(this.selectedLog.jsonTreeData)
+          return JSON.stringify(this.selectedLog[this.jsonTreeObjectKey || 'jsonTreeData'])
         } else {
           return JSON.stringify({})
         }
       },
       ...mapGetters({
-        selectedLog: 'selectedLog'
+        selectedLog: 'selectedLog',
+        isCopyableLogDetail: 'isCopyableLogDetail',
+        hasJsonTreeSection: 'hasJsonTreeSection',
+        jsonTreeObjectKey: 'jsonTreeObjectKey'
       })
     },
     watch: {
@@ -77,13 +95,13 @@
         this.isLoading = true
         setTimeout(() => { this.isLoading = false }, 500)
 
-        if (!log || !log.moreData) {
+        if (!log || !log['moreData']) {
           return
         }
         this.slackMessageToCopy = ''
-        for (var key in log.moreData) {
-          if (!log.moreData.hasOwnProperty(key)) continue
-          var infor = log.moreData[key]
+        for (var key in log['moreData']) {
+          if (!log['moreData'].hasOwnProperty(key)) continue
+          var infor = log['moreData'][key]
           this.slackMessageToCopy += `${infor.name} ${infor.label}\n`
         }
         this.slackMessageToCopy = this.slackMessageToCopy.replace(new RegExp('<br><br>', 'g'), '\n')
