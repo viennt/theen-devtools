@@ -8,6 +8,10 @@
         class="selection-black">
         <div style="font-size: 16px; word-wrap: break-word;">
           {{ selectedLog.title || 'Unknown Log' }}
+          <el-button v-if="selectedLog['type'] ===  'info'"
+            size="mini" type="text"
+            icon="el-icon-caret-right"
+            @click="openWebSocketPage()">Run</el-button>
         </div>
 
         <JsonTree
@@ -33,20 +37,19 @@
           </div>
         </el-tooltip>
 
-        <div v-if="!isCopyableLogDetail"
-          class="panel-theen">
+        <div v-if="!isCopyableLogDetail">
           <template v-for="infor in selectedLog['moreData']">
-            <div :key="infor.name + 'line'">
+            <div :key="infor.name + 'line'"
+              class="panel-theen">
               <strong class="text-theen">{{ infor.name || '-' }} </strong>
               <span class="text-grey" v-html="highlight(infor.value)"></span>
             </div>
-            <br :key="infor.name + 'break-line'"/>
           </template>
         </div>
 
         <el-input
           class="search-input"
-          placeholder="Please input"
+          placeholder="Enter keyword to search"
           size="mini"
           v-model="searchingQuery">
         </el-input>
@@ -64,7 +67,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
 
   import JsonTree from 'vue-json-tree'
 
@@ -93,7 +96,7 @@
     watch: {
       selectedLog: function (log) {
         this.isLoading = true
-        setTimeout(() => { this.isLoading = false }, 500)
+        setTimeout(() => { this.isLoading = false }, 250)
 
         if (!log || !log['moreData']) {
           return
@@ -116,6 +119,9 @@
       }
     },
     methods: {
+      ...mapActions([
+        'selectRequest'
+      ]),
       handleCopyStatus () {
         this.copySucceeded = true
       },
@@ -126,6 +132,17 @@
         return content.replace(new RegExp(this.searchingQuery, 'gi'), match => {
           return '<span class="theen-highlight">' + match + '</span>'
         })
+      },
+      openWebSocketPage () {
+        const request = {
+          message: this.selectedLog['moreData']['messageContent'].value,
+          server: {
+            name: this.selectedLog['moreData']['server'].value,
+            value: this.selectedLog['moreData']['server'].value
+          }
+        }
+        this.selectRequest(request)
+        this.$router.push('/websocket')
       }
     },
     components: {
@@ -135,9 +152,6 @@
 </script>
 
 <style lang="scss" scoped>
-  .area-theen-second * {
-    font-family: 'Source Code Pro', sans-seri
-  }
   .area-theen-second .selection-black {
     padding: 8px 8px;
   }

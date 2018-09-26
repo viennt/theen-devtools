@@ -1,5 +1,10 @@
 <template>
-  <div class="panel-theen-light">Setting Server</div>
+  <el-alert
+    title="Coming soon"
+    type="info"
+    :closable="false"
+    center>
+  </el-alert>
 </template>
 
 <script>

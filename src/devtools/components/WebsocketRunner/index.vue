@@ -156,6 +156,11 @@
         'addRequest'
       ])
     },
+    mounted () {
+      if (this.selectedRequest && this.selectedRequest.message) {
+        this.wsRequestMessage = this.selectedRequest.message
+      }
+    },
     components: {
       JsonTree,
       WebsocketServer
@@ -164,7 +169,4 @@
 </script>
 
 <style lang="scss" scoped>
-  .area-theen-second * {
-    font-family: 'Source Code Pro', sans-seri
-  }
 </style>

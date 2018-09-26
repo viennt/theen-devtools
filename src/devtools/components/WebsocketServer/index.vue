@@ -30,7 +30,7 @@
       <el-tooltip
         :content="(socketState === 1) ? 'Disconnect' : 'Connect'"
         class="item" effect="dark"
-        placement="bottom">
+        placement="top">
         <el-button v-if="socketState === 3"
           @click="connectWebsocket()"
           :style="{width: '100%'}"
